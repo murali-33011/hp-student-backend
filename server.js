@@ -11,10 +11,11 @@ const studentRoutes = require("./src/routes/studentRoutes");
 dotenv.config();
 
 //Enable CORS (Using POSTMAN for testing)
-app.use(cors());
+
 
 //Create an instance of express app
 const app = express();
+app.use(cors());
 
 //Middleware to parse JSON bodies and enable CORS
 app.use(express.json());
