@@ -27,8 +27,8 @@ __🛠 Tech Stack__
 
 
 __📂 Project Structure__
-================================
-  hyrweb/
+
+hyrweb/
 │
 ├── src/
 │   ├── controllers/
@@ -44,7 +44,7 @@ __📂 Project Structure__
 ├── server.js
 ├── package.json
 └── .env
-================================
+
 
 __⚙️ Setup Instructions__
 
