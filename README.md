@@ -41,7 +41,6 @@ This project demonstrates secure authentication flows, role-based authorization,
 * jsonwebtoken
 * express-validator
 * express-rate-limit
-* helmet
 
 ### DevOps
 
