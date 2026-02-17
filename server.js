@@ -10,6 +10,9 @@ const studentRoutes = require("./src/routes/studentRoutes");
 //Loading environment variables from .env file
 dotenv.config();
 
+//Enable CORS (Using POSTMAN for testing)
+app.use(cors());
+
 //Create an instance of express app
 const app = express();
 
@@ -18,9 +21,6 @@ app.use(express.json());
 
 app.use("/api/v1/auth", authRoutes); //Mounting auth routes at /api/auth
 app.use("/api/v1/students", studentRoutes); //Mounting student routes at /api/students 
-
-//Enable CORS (Using POSTMAN for testing)
-app.use(cors());
 
 //Connet to MongoDB using Mongoose for DB
 mongoose.connect(process.env.MONGO_URI)

@@ -26,7 +26,8 @@ const studentSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 8
+      minlength: 8,
+      // select : false  // can be inserted if the password should not be returned in queries by default, but we will need it for authentication so we will not use it here
     },
 
     studentId: {

@@ -20,8 +20,10 @@ router.post(
     .withMessage("Last name is required"),
 
     body("email")
+    .isEmail()
     .notEmpty()
-    .withMessage("Email is required"),
+    .withMessage("Invalid email format")
+    .normalizeEmail(),
 
     body("password")
       .isLength({min: 8})

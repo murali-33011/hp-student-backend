@@ -17,6 +17,11 @@ exports.register = async (req,res) => {
     const { firstName, lastName, email, password, studentId, courses, year, gpa, phone, address, emergencyContact } = req.body;
 
     //3. Check if user already exists
+    const existingStudentId = await Student.findOne({ studentId });
+    if (existingStudentId) {
+      return res.status(400).json({ message: "Student ID already exists" });
+    }
+
     const existingStudent = await Student.findOne({email})
 
     if (existingStudent) {
@@ -61,6 +66,12 @@ exports.register = async (req,res) => {
 
   }
   catch(error){
+    if (error.code === 11000) {
+      return res.status(400).json({
+      message: "Duplicate field error",
+      field: Object.keys(error.keyPattern)[0]
+    });
+}
     console.error("Error during registration:", error);
     res.status(500).json({message:"Internal server error"});
   }
