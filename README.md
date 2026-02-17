@@ -108,7 +108,7 @@ http://localhost:5000
 
 ---
 
-# 🐳 Run with Docker (Recommended)
+# 🐳 Run with Docker
 
 ### Build Image
 
