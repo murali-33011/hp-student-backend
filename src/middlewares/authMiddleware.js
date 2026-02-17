@@ -21,9 +21,6 @@ exports.protect = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // 3️⃣ Attach user to request
-    /*if (!req.user) {
-       return res.status(401).json({ message: "User no longer exists" });
-      }*/
       
     req.user = await Student.findById(decoded.userId).select("-password");
 
