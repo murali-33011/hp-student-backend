@@ -27,7 +27,7 @@ __🛠 Tech Stack__
 
 
 __📂 Project Structure__
-
+================================
   hyrweb/
 │
 ├── src/
@@ -44,6 +44,7 @@ __📂 Project Structure__
 ├── server.js
 ├── package.json
 └── .env
+================================
 
 __⚙️ Setup Instructions__
 
@@ -55,7 +56,7 @@ __⚙️ Setup Instructions__
       npm install
 
   3️⃣ Environment Variables
-    Create a .env file in root:
+      Create a .env file in root:
 
     PORT=5000
     MONGO_URI=your_mongodb_connection_string
