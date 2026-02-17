@@ -28,22 +28,22 @@ __🛠 Tech Stack__
 
 __📂 Project Structure__
 
-hyrweb/
-│
-├── src/
-│   ├── controllers/
-│   │   └── authController.js
-│   ├── middlewares/
-│   │   └── authMiddleware.js
-│   ├── models/
-│   │   └── Student.js
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   └── studentRoutes.js
-│
-├── server.js
-├── package.json
-└── .env
+    hyrweb/
+    │
+    ├── src/
+    │   ├── controllers/
+    │   │   └── authController.js
+    │   ├── middlewares/
+    │   │   └── authMiddleware.js
+    │   ├── models/
+    │   │   └── Student.js
+    │   ├── routes/
+    │   │   ├── authRoutes.js
+    │   │   └── studentRoutes.js
+    │
+    ├── server.js
+    ├── package.json
+    └── .env
 
 
 __⚙️ Setup Instructions__
