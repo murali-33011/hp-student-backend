@@ -1,7 +1,9 @@
 __Overview__
+
 This project is a secure Student Management System built using Node.js, Express, MongoDB, and JWT authentication.
 
 _It demonstrates:_
+
   Secure authentication with encrypted passwords
   Role-based authorization (Student/Admin)
   Thoughtful student data modeling
@@ -9,6 +11,7 @@ _It demonstrates:_
   Proper validation and error handling
 
 __🛠 Tech Stack__
+
   _Backend:_
     Node.js
     Express.js
@@ -24,6 +27,7 @@ __🛠 Tech Stack__
 
 
 __📂 Project Structure__
+
   hyrweb/
 │
 ├── src/
@@ -42,6 +46,7 @@ __📂 Project Structure__
 └── .env
 
 __⚙️ Setup Instructions__
+
   1️⃣ Clone Repository
       git clone <repo-url>
       cd hyrweb
@@ -63,6 +68,7 @@ __⚙️ Setup Instructions__
     http://localhost:5000
 
 __🔐 Authentication Flow__
+
 _Registration_
 API ENDPOINT:
 POST /api/v1/auth/register
@@ -78,6 +84,7 @@ POST /api/v1/auth/login
   Returns JWT token
 
 __🔑 Protected Routes__
+
   All protected routes require:
     Authorization: Bearer <your_token>
   Example:
@@ -85,6 +92,7 @@ __🔑 Protected Routes__
     Returns logged-in user profile.
 
 __👥 Role-Based Authorization__
+
 Two roles supported:
 STUDENT
 ADMIN
@@ -92,6 +100,7 @@ ADMIN
 Admin-only routes are protected using authorization middleware.
 
 __🗂 Student Model Design__
+
   The Student model includes:
     Identification
     firstName
@@ -114,6 +123,7 @@ __🗂 Student Model Design__
     timestamps (createdAt, updatedAt)
 
 __🔒 Security Features__
+
 >Passwords hashed using bcrypt (salt rounds: 10)
 >JWT authentication with expiration
 >Role-based access control
@@ -121,6 +131,7 @@ __🔒 Security Features__
 >Sensitive fields excluded from queries
 
 __API ENDPOINT SUMMARY__
+
 | Method | Endpoint       | Description      | Auth Required |
 | ------ | -------------- | ---------------- | ------------- |
 | POST   | /auth/register | Register student | ❌             |
@@ -128,6 +139,7 @@ __API ENDPOINT SUMMARY__
 | GET    | /students/me   | Get profile      | ✅             |
 
 __📌 Assumptions & Design Decisions__
+
 ->MongoDB chosen for flexibility in schema design.
 ->JWT expiration set to 1 hour for security.
 ->Password hashing handled via Mongoose pre-save hook.
