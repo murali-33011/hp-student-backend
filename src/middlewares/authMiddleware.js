@@ -5,7 +5,7 @@ exports.protect = async (req, res, next) => {
   try {
     let token;
 
-    // 1️⃣ Check Authorization header
+    // 1. Check Authorization header
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer")
@@ -17,10 +17,10 @@ exports.protect = async (req, res, next) => {
       return res.status(401).json({ message: "Not authorized, no token" });
     }
 
-    // 2️⃣ Verify token
+    // 2️. Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // 3️⃣ Attach user to request
+    // 3️. Attach user to request
       
     req.user = await Student.findById(decoded.userId).select("-password");
 
