@@ -1,148 +1,262 @@
-__Overview__
 
-This project is a secure Student Management System built using Node.js, Express, MongoDB, and JWT authentication.
+# 🚀 Student Management System API
 
-_It demonstrates:_
+A secure and production-ready Student Management System built with **Node.js, Express, MongoDB, JWT authentication, and Docker containerization**.
 
-  Secure authentication with encrypted passwords
-  Role-based authorization (Student/Admin)
-  Thoughtful student data modeling
-  RESTful API design
-  Proper validation and error handling
+This project demonstrates secure authentication flows, role-based authorization, scalable API design, and backend best practices.
 
-__🛠 Tech Stack__
+---
 
-  _Backend:_
-    Node.js
-    Express.js
-    
-  _Database:_
-    MongoDB
-    Mongoose ODM
-    
-  _Security:_
-    bcryptjs (Password hashing)
-    jsonwebtoken (JWT authentication)
-    express-validator (Input validation)
+## 🔥 Key Features
 
+* Secure password hashing using bcrypt
+* JWT-based authentication (1 hour expiration)
+* Role-based access control (STUDENT / ADMIN)
+* Input validation & sanitization using express-validator
+* Rate limiting on authentication endpoints
+* API versioning (`/api/v1`)
+* Protected routes using middleware
+* Docker container support
+* Proper error handling & status codes
+* Secure schema design with field validation
+* Sensitive data exclusion from queries
 
-__📂 Project Structure__
+---
 
-    hyrweb/
-    │
-    ├── src/
-    │   ├── controllers/
-    │   │   └── authController.js
-    │   ├── middlewares/
-    │   │   └── authMiddleware.js
-    │   ├── models/
-    │   │   └── Student.js
-    │   ├── routes/
-    │   │   ├── authRoutes.js
-    │   │   └── studentRoutes.js
-    │
-    ├── server.js
-    ├── package.json
-    └── .env
+## 🛠 Tech Stack
 
+### Backend
 
-__⚙️ Setup Instructions__
+* Node.js
+* Express.js
 
-  1️⃣ Clone Repository
-      git clone <repo-url>
-      cd hyrweb
+### Database
 
-  2️⃣ Install Dependencies
-      npm install
+* MongoDB
+* Mongoose ODM
 
-  3️⃣ Environment Variables
-      Create a .env file in root:
+### Security
 
-    PORT=5000
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_super_secret_key
-    
-  4️⃣ Start Server
-      npm start / npm run dev
+* bcryptjs
+* jsonwebtoken
+* express-validator
+* express-rate-limit
 
-    Server runs on:
-    http://localhost:5000
+### DevOps
 
-__🔐 Authentication Flow__
+* Docker
 
-_Registration_
-API ENDPOINT:
-POST /api/v1/auth/register
-  Validates input
-  Hashes password using bcrypt
-  Stores student securely
-  Returns JWT token (expires in 1 hour)
+---
 
-_Login_
-API ENDPOINT:
-POST /api/v1/auth/login
-  Verifies email and password
-  Returns JWT token
+## 📂 Project Structure
 
-__🔑 Protected Routes__
+```
+hyrweb/
+│
+├── src/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│
+├── server.js
+├── Dockerfile
+├── .dockerignore
+├── package.json
+├── package-lock.json
+└── README.md
+```
 
-  All protected routes require:
-    Authorization: Bearer <your_token>
-  Example:
-  GET /api/v1/students/me
-    Returns logged-in user profile.
+---
 
-__👥 Role-Based Authorization__
+# ⚙️ Local Development Setup
 
-Two roles supported:
-STUDENT
-ADMIN
+### 1️⃣ Clone Repository
 
-Admin-only routes are protected using authorization middleware.
+```bash
+git clone https://github.com/murali-33011/hp-student-backend.git
+cd hyrweb
+```
 
-__🗂 Student Model Design__
+### 2️⃣ Install Dependencies
 
-  The Student model includes:
-    Identification
-    firstName
-    lastName
-    email (unique)
-    studentId (unique)
-    role
-    Academic Information
-    courses
-    year (1–5)
-    GPA (0–10)
-    enrollmentDate
-    status (ACTIVE / INACTIVE / GRADUATED)
-    phone
-    address
-    emergencyContact (phone)
+```bash
+npm install
+```
 
-  Security
-    password (hashed)
-    timestamps (createdAt, updatedAt)
+### 3️⃣ Configure Environment Variables
 
-__🔒 Security Features__
+Create a `.env` file in root:
 
->Passwords hashed using bcrypt (salt rounds: 10)
->JWT authentication with expiration
->Role-based access control
->Input validation using express-validator
->Sensitive fields excluded from queries
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+```
 
-__API ENDPOINT SUMMARY__
+### 4️⃣ Start Server
 
-| Method | Endpoint       | Description      | Auth Required |
-| ------ | -------------- | ---------------- | ------------- |
-| POST   | /auth/register | Register student | ❌             |
-| POST   | /auth/login    | Login student    | ❌             |
-| GET    | /students/me   | Get profile      | ✅             |
+```bash
+npm start
+```
 
-__📌 Assumptions & Design Decisions__
+Server runs at:
 
-->MongoDB chosen for flexibility in schema design.
-->JWT expiration set to 1 hour for security.
-->Password hashing handled via Mongoose pre-save hook.
-->Role field added to demonstrate authorization capability.
-->Email normalized to lowercase to avoid duplicates.
+```
+http://localhost:5000
+```
+
+---
+
+# 🐳 Run with Docker
+
+### Build Image
+
+```bash
+docker build -t student-api .
+```
+
+### Run Container
+
+```bash
+docker run -p 5000:5000 --env-file .env student-api
+```
+
+The API will be available at:
+
+```
+http://localhost:5000
+```
+
+---
+
+# 🔐 Authentication Flow
+
+## Register
+
+**POST** `/api/v1/auth/register`
+
+* Validates input
+* Hashes password before saving
+* Prevents duplicate email and studentId
+* Returns JWT token
+
+### Example Response
+
+```json
+{
+  "message": "Student registered successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+---
+
+## Login
+
+**POST** `/api/v1/auth/login`
+
+* Verifies credentials
+* Returns JWT token
+* Rate limited to prevent brute force attacks
+
+---
+
+# 🔑 Protected Routes
+
+All protected routes require:
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+Example:
+
+**GET** `/api/v1/students/me`
+
+Returns authenticated user profile.
+
+---
+
+# 👥 Role-Based Authorization
+
+Supported roles:
+
+* STUDENT
+* ADMIN
+
+Admin-only routes are protected using middleware:
+
+```js
+authorize("ADMIN")
+```
+
+---
+
+# 📊 Student Model Design
+
+Designed to reflect real-world student management needs.
+
+### Identification
+
+* firstName
+* lastName
+* email (unique, normalized)
+* studentId (unique)
+* role
+
+### Academic Information
+
+* courses
+* year (1–5)
+* gpa (0–10)
+* enrollmentDate
+* status (ACTIVE / INACTIVE / GRADUATED)
+
+### Contact Details
+
+* phone
+* address
+* emergencyContact (nested object)
+
+### Security
+
+* password (hashed, excluded from queries)
+* timestamps (createdAt, updatedAt)
+
+---
+
+# 🔒 Security Implementation
+
+* Password hashing with bcrypt (salt rounds: 10)
+* JWT authentication with expiration
+* Role-based access control
+* Rate limiting on authentication endpoints
+* Helmet security headers
+* Input validation & sanitization
+* Duplicate key protection
+* Sensitive field exclusion
+
+---
+
+# 📌 API Endpoint Summary
+
+| Method | Endpoint              | Description         | Auth |
+| ------ | --------------------- | ------------------- | ---- |
+| POST   | /api/v1/auth/register | Register student    | ❌    |
+| POST   | /api/v1/auth/login    | Login student       | ❌    |
+| GET    | /api/v1/students/me   | Get current profile | ✅    |
+
+---
+
+# 📌 Design Decisions
+
+* MongoDB chosen for schema flexibility
+* JWT used for stateless authentication
+* Middleware-based architecture for separation of concerns
+* Pre-save hook for secure password hashing
+* Docker support for environment consistency
+* Versioned API for future scalability
+
+---
+
