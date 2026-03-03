@@ -5,11 +5,11 @@ const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
+//mounting routes
 const authRoutes = require("./src/routes/authRoutes");
 const studentRoutes = require("./src/routes/studentRoutes");
 
-dotenv.config();
-
+//instance creation
 const app = express();
 
 // Security middlewares FIRST
@@ -34,11 +34,9 @@ app.use("/api/v1/auth", authLimiter);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/students", studentRoutes);
 
-// DB connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch(err => console.error(err));
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+// Health check route
+app.get("/", (req, res) => {
+  res.send("Server running");
 });
+
+module.exports = app;
